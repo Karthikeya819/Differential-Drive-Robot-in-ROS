@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<launch>
+	<!--Launching world dk -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find task_6)/world/emptyy_world.world"/>
+		<arg name="debug" value="false"/>
+		<arg name="gui" value="true"/>
+		<arg name="paused" value="false"/>
+		<arg name="use_sim_time" value='true'/>
+	</include>
+	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find task_6)/urdf/robot.xacro'" />
+	<node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model m2wr" />
+          <node name="teleop_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"/>
+</launch>
